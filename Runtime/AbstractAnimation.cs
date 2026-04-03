@@ -8,14 +8,14 @@ namespace ActionCode.AnimationSystem
         [SerializeField] private string identifier;
 
         public string Identifier => identifier;
-        public bool IsPlaying { get; private set; }
+        public bool IsPlayingAnimation { get; private set; }
 
         private CancellationTokenSource cancelationSource;
 
         public virtual void Stop()
         {
             Cancel();
-            IsPlaying = false;
+            IsPlayingAnimation = false;
         }
 
         public async Awaitable RestartAsync()
@@ -26,13 +26,13 @@ namespace ActionCode.AnimationSystem
 
         public async Awaitable PlayAsync()
         {
-            if (IsPlaying) return;
+            if (IsPlayingAnimation) return;
 
             InitializeCancelationSource();
 
             try
             {
-                IsPlaying = true;
+                IsPlayingAnimation = true;
                 await StartPlayAsync(cancelationSource.Token);
             }
             finally
@@ -47,7 +47,7 @@ namespace ActionCode.AnimationSystem
             return hasIdentifier ? identifier : base.ToString();
         }
 
-        internal abstract Awaitable StartPlayAsync(CancellationToken token);
+        protected abstract Awaitable StartPlayAsync(CancellationToken token);
 
         private void Cancel()
         {
