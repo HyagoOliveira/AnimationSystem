@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.0] - 2026-01-01
 ### Added
+- LitMotion 2.0.1 and LitMotion.Animation 2.0.0 packages
 - CHANGELOG
 - Package file
 - README
