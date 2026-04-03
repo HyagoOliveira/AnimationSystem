@@ -9,6 +9,7 @@ namespace LitMotion.Animation.Editor
     [CustomEditor(typeof(LitMotionAnimation))]
     public sealed class LitMotionAnimationEditor : UnityEditor.Editor
     {
+        LitMotionAnimation animation;
         SerializedProperty componentsProperty;
         int prevArraySize;
 
@@ -31,6 +32,7 @@ namespace LitMotion.Animation.Editor
                 var property = componentsProperty.GetArrayElementAtIndex(last);
                 property.managedReferenceValue = ReflectionHelper.CreateDefaultInstance(type);
                 serializedObject.ApplyModifiedProperties();
+                animation.Reset();
             };
 
             root.Add(CreateSettingsPanel());
@@ -43,6 +45,7 @@ namespace LitMotion.Animation.Editor
 
         void OnEnable()
         {
+            animation = target as LitMotionAnimation;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
@@ -50,7 +53,7 @@ namespace LitMotion.Animation.Editor
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode && target != null)
             {
-                ((LitMotionAnimation)target).Stop();
+                animation.Stop();
             }
 
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -60,7 +63,7 @@ namespace LitMotion.Animation.Editor
         {
             if (state == PlayModeStateChange.ExitingEditMode)
             {
-                ((LitMotionAnimation)target).Stop();
+                animation.Stop();
             }
         }
 
@@ -149,7 +152,7 @@ namespace LitMotion.Animation.Editor
                     prevArraySize = componentsProperty.arraySize;
                 }
 
-                var components = ((LitMotionAnimation)target).Components;
+                var components = animation.Components;
                 for (int i = 0; i < views.Count; i++)
                 {
                     if (components.Count <= i)
@@ -192,28 +195,28 @@ namespace LitMotion.Animation.Editor
                     flexGrow = 1f,
                 }
             };
-            var playButton = new Button(() => ((LitMotionAnimation)target).Play())
+            var playButton = new Button(() => animation.Play())
             {
                 text = "Play",
                 style = {
                     flexGrow = 1f,
                 }
             };
-            var restartButton = new Button(() => ((LitMotionAnimation)target).Restart())
+            var restartButton = new Button(() => animation.Restart())
             {
                 text = "Restart",
                 style = {
                     flexGrow = 1f,
                 }
             };
-            var stopButton = new Button(() => ((LitMotionAnimation)target).Pause())
+            var stopButton = new Button(() => animation.Pause())
             {
                 text = "Pause",
                 style = {
                     flexGrow = 1f,
                 }
             };
-            var resetButton = new Button(() => ((LitMotionAnimation)target).Stop())
+            var resetButton = new Button(() => animation.Stop())
             {
                 text = "Stop",
                 style = {
@@ -306,6 +309,7 @@ namespace LitMotion.Animation.Editor
                     var elementProperty = property.GetArrayElementAtIndex(arrayIndex);
                     elementProperty.managedReferenceValue = ReflectionHelper.CreateDefaultInstance(elementProperty.managedReferenceValue.GetType());
                     RefleshComponentsView(true);
+                    animation.Reset();
                 }, string.IsNullOrEmpty(property.GetArrayElementAtIndex(arrayIndex).managedReferenceFullTypename) ? DropdownMenuAction.Status.Disabled : DropdownMenuAction.Status.Normal);
 
                 evt.menu.AppendSeparator();
@@ -343,7 +347,7 @@ namespace LitMotion.Animation.Editor
 
         bool IsActive()
         {
-            return !((LitMotionAnimation)target).IsActive;
+            return !animation.IsActive;
         }
     }
 }

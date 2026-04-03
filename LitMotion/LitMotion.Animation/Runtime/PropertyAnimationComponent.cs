@@ -1,4 +1,3 @@
-using System;
 using LitMotion.Adapters;
 using Unity.Collections;
 using UnityEngine;
@@ -6,16 +5,23 @@ using UnityEngine;
 namespace LitMotion.Animation
 {
     public abstract class PropertyAnimationComponent<TObject, TValue, TOptions, TAdapter> : LitMotionAnimationComponent
-        where TObject : UnityEngine.Object
+        where TObject : Object
         where TValue : unmanaged
         where TOptions : unmanaged, IMotionOptions
         where TAdapter : unmanaged, IMotionAdapter<TValue, TOptions>
     {
         [SerializeField] TObject target;
         [SerializeField] SerializableMotionSettings<TValue, TOptions> settings;
-        [SerializeField] bool relative;
+        [SerializeField] bool relative = true;
 
         TValue startValue;
+
+        public override void Reset(Component component)
+        {
+            settings.Loops = -1; // Infinite loops
+            settings.Duration = 1f;
+            if (target == null) target = component.GetComponent<TObject>();
+        }
 
         public override void OnStop()
         {

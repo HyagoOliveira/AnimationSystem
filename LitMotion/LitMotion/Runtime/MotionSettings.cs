@@ -26,7 +26,7 @@ namespace LitMotion
         public float Duration
         {
             get => duration;
-            init => duration = value;
+            set => duration = value;
         }
 
         public TOptions Options
@@ -62,7 +62,7 @@ namespace LitMotion
         public int Loops
         {
             get => loops;
-            init => loops = value;
+            set => loops = value;
         }
 
         public LoopType LoopType

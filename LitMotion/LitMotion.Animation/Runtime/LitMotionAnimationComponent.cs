@@ -31,6 +31,8 @@ namespace LitMotion.Animation
         public virtual void OnPause() { }
         public virtual void OnStop() { }
 
+        public virtual void Reset(Component component) { }
+
         public MotionHandle TrackedHandle { get; set; }
     }
 }

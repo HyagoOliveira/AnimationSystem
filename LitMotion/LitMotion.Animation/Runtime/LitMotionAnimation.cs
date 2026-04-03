@@ -25,6 +25,14 @@ namespace LitMotion.Animation
 
         public IReadOnlyList<LitMotionAnimationComponent> Components => components;
 
+        public void Reset()
+        {
+            foreach (var component in Components)
+            {
+                component.Reset(this);
+            }
+        }
+
         void Start()
         {
             if (playOnAwake) Play();
