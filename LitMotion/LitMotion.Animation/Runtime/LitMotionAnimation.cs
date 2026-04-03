@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using ActionCode.AnimationSystem;
 using LitMotion.Collections;
 using UnityEngine;
 
 namespace LitMotion.Animation
 {
     [AddComponentMenu("LitMotion Animation")]
-    public sealed class LitMotionAnimation : MonoBehaviour
+    public sealed class LitMotionAnimation : AbstractAnimation
     {
         enum AnimationMode
         {
@@ -140,8 +142,10 @@ namespace LitMotion.Animation
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
+            base.Stop();
+
             var span = playingComponents.AsSpan();
             span.Reverse();
             foreach (var component in span)
@@ -197,6 +201,12 @@ namespace LitMotion.Animation
         void OnDestroy()
         {
             Stop();
+        }
+
+        protected override async Awaitable StartPlayAsync(CancellationToken token)
+        {
+            Play();
+            while (IsPlaying) await Awaitable.NextFrameAsync(token);
         }
     }
 }
