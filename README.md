@@ -18,7 +18,9 @@ Also, this packges uses [LitMotion](https://annulusgames.github.io/LitMotion/) a
 
 ### How to upgrade LitMotion
 
-Go to the [Release page](https://github.com/annulusgames/LitMotion/releases), download the lasted release and past it inside the [LitMotion folder](/LitMotion).
+1. Go to the [Release page](https://github.com/annulusgames/LitMotion/releases), download the lasted release and past it inside the [LitMotion folder](/LitMotion).
+2. Remake [those changes](https://github.com/HyagoOliveira/AnimationSystem/commit/887a0b90964472d2aeff89ebf6240ec1dba64ff5).
+
 
 ## Installation
 
