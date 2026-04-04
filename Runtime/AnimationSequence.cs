@@ -17,6 +17,15 @@ namespace ActionCode.AnimationSystem
         public AbstractAnimation[] Animations => animations;
 
         /// <summary>
+        /// Finds all local animations if none is set.
+        /// </summary>
+        public void TryFindAnimations()
+        {
+            if (animations == null || animations.Length == 0)
+                FindAnimations();
+        }
+
+        /// <summary>
         /// Finds all local animations.
         /// </summary>
         public void FindAnimations() => animations = GetComponentsInChildren<AbstractAnimation>();
