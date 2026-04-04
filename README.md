@@ -10,19 +10,22 @@
 
 Components to animate GameOjects in runtime.
 
-Also, this packges uses [LitMotion](https://annulusgames.github.io/LitMotion/) and [LitMotion.Animation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation-overview.html) as Tween Library.
+Also, this packges uses [LitMotion](https://annulusgames.github.io/LitMotion/) and [LitMotion.Animation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation-overview.html) as the Tween Library.
 
 ## How To Use
 
-### Using [...]
+### Using LitMotion
 
-### How to upgrade LitMotion
+Add the LitMotionAnimation component into a gameobject and configure it. Check the [official documentation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation.html).
 
-1. Go to the [Release page](https://github.com/annulusgames/LitMotion/releases), download the lasted release and past it inside the [LitMotion folder](/LitMotion).
-2. Remake custom implementations:
-    2.1 [Set LitMotionAnimationComponent Targets when reseted](https://github.com/HyagoOliveira/AnimationSystem/commit/887a0b90964472d2aeff89ebf6240ec1dba64ff5)
-    2.2 [LitMotionAnimation implements AbstractAnimation](https://github.com/HyagoOliveira/AnimationSystem/commit/3d4762a3d6212440ec2113984a684db5a2137566)
+## How to upgrade LitMotion
 
+1. Go to the [LitMotion Release Page](https://github.com/annulusgames/LitMotion/releases)
+2. Download the lasted release
+3. Paste `LitMotion` and `LitMotion.Animation` folders inside the local [LitMotion folder](/LitMotion).
+4. Redo the custom implementations:
+    - [Set LitMotionAnimationComponent Targets when reseted](https://github.com/HyagoOliveira/AnimationSystem/commit/887a0b90964472d2aeff89ebf6240ec1dba64ff5)
+    - [LitMotionAnimation implements AbstractAnimation](https://github.com/HyagoOliveira/AnimationSystem/commit/3d4762a3d6212440ec2113984a684db5a2137566)
 
 ## Installation
 
