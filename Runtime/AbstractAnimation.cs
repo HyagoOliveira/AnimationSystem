@@ -23,6 +23,8 @@ namespace ActionCode.AnimationSystem
 
         private CancellationTokenSource cancelationSource;
 
+        private void OnDisable() => Stop();
+
         public virtual void Stop()
         {
             Cancel();
@@ -41,20 +43,25 @@ namespace ActionCode.AnimationSystem
         /// Plays this animation asynchronously.
         /// </summary>
         /// <remarks>
-        /// You can stop the animation using <see cref="Stop"/>.<br/>
-        /// The animation will be stopped automatically if GameObject is destroyed.
+        /// You can stop the animation using the <see cref="Stop"/> function or disable/destroy this instance.
         /// </remarks>
+        /// <param name="cancellation">The cancellation source to cancel this animation.</param>
         /// <returns>An asynchronous operation.</returns>
-        public async Awaitable PlayAsync()
+        public async Awaitable PlayAsync(CancellationTokenSource cancellation = null)
         {
-            if (IsPlayingAnimation) return;
+            if (IsPlayingAnimation) Stop();
 
-            InitializeCancelationSource();
+            Cancel();
+            cancelationSource = cancellation ?? new CancellationTokenSource();
 
             try
             {
                 IsPlayingAnimation = true;
                 await StartPlayAsync(cancelationSource.Token);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
             }
             finally
             {
@@ -75,19 +82,6 @@ namespace ActionCode.AnimationSystem
             cancelationSource?.Cancel();
             cancelationSource?.Dispose();
             cancelationSource = null;
-        }
-
-        private void InitializeCancelationSource()
-        {
-            Cancel();
-            cancelationSource = new CancellationTokenSource();
-
-            // Link the manual token with the built-in destroyCancellationToken
-            // If this GameObject is destroyed, the animation is cancelled.
-            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
-                cancelationSource.Token,
-                destroyCancellationToken
-            );
         }
     }
 }
