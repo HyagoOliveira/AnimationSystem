@@ -3,11 +3,22 @@ using System.Threading;
 
 namespace ActionCode.AnimationSystem
 {
+    /// <summary>
+    /// Abstract component for an animation.
+    /// </summary>
     public abstract class AbstractAnimation : MonoBehaviour
     {
-        [SerializeField] private string identifier;
+        [SerializeField, Tooltip("The animation identifier.")]
+        private string identifier;
 
+        /// <summary>
+        /// The animation identifier.
+        /// </summary>
         public string Identifier => identifier;
+
+        /// <summary>
+        /// Whether is currently playing this animation.
+        /// </summary>
         public bool IsPlayingAnimation { get; private set; }
 
         private CancellationTokenSource cancelationSource;
@@ -18,12 +29,22 @@ namespace ActionCode.AnimationSystem
             IsPlayingAnimation = false;
         }
 
-        public async Awaitable RestartAsync()
+        public virtual void Restart()
         {
             Stop();
-            await PlayAsync();
+            Play();
         }
 
+        public virtual void Play() => _ = PlayAsync();
+
+        /// <summary>
+        /// Plays this animation asynchronously.
+        /// </summary>
+        /// <remarks>
+        /// You can stop the animation using <see cref="Stop"/>.<br/>
+        /// The animation will be stopped automatically if GameObject is destroyed.
+        /// </remarks>
+        /// <returns>An asynchronous operation.</returns>
         public async Awaitable PlayAsync()
         {
             if (IsPlayingAnimation) return;

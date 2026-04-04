@@ -70,7 +70,7 @@ namespace LitMotion.Animation
             }
         }
 
-        public void Play()
+        public override void Play()
         {
             var isPlaying = false;
 
@@ -160,7 +160,7 @@ namespace LitMotion.Animation
             queue.Clear();
         }
 
-        public void Restart()
+        public override void Restart()
         {
             Stop();
             Play();
