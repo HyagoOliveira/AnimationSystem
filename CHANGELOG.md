@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-27
+### Added
+- TMP Text Visible Characters Animation 
+
+### Changed
+- Play animation when instance is enabled
+
 ## [0.1.0] - 2026-04-04
 ### Added
 - AnimationSequence
@@ -18,5 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/HyagoOliveira/AnimationSystem/compare/0.1.0...main
+[Unreleased]: https://github.com/HyagoOliveira/AnimationSystem/compare/0.2.0...main
+[0.2.0]: https://github.com/HyagoOliveira/AnimationSystem/tree/0.2.0/
 [0.1.0]: https://github.com/HyagoOliveira/AnimationSystem/tree/0.1.0/

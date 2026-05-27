@@ -1,14 +1,13 @@
 {
   "name": "com.actioncode.animation-system",
   "displayName": "ActionCode-Animation System",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "unity": "6000.3",
   "description": "This package contains scripts to improve animation workflow.",
   "keywords": [
     "Animation",
     "Tween"
   ],
-  "dependencies": {},
   "license": "MIT",
   "homepage": "https://github.com/HyagoOliveira/AnimationSystem#README",
   "repository": {
