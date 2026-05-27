@@ -20,7 +20,7 @@ namespace LitMotion
         public TValue EndValue
         {
             get => endValue;
-            init => endValue = value;
+            set => endValue = value;
         }
 
         public float Duration

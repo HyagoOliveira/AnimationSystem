@@ -16,7 +16,6 @@ namespace LitMotion.Animation
             Sequential
         }
 
-        [SerializeField] bool playOnAwake = true;
         [SerializeField] AnimationMode animationMode;
 
         [SerializeReference]
@@ -33,11 +32,6 @@ namespace LitMotion.Animation
             {
                 component.Reset(this);
             }
-        }
-
-        void Start()
-        {
-            if (playOnAwake) Play();
         }
 
         void MoveNextMotion()
@@ -72,6 +66,7 @@ namespace LitMotion.Animation
 
         public override void Play()
         {
+            base.Play();
             var isPlaying = false;
 
             foreach (var component in playingComponents.AsSpan())
@@ -129,8 +124,10 @@ namespace LitMotion.Animation
             }
         }
 
-        public void Pause()
+        public override void Pause()
         {
+            base.Pause();
+
             foreach (var component in playingComponents.AsSpan())
             {
                 var handle = component.TrackedHandle;
@@ -182,7 +179,7 @@ namespace LitMotion.Animation
             }
         }
 
-        public bool IsPlaying
+        public override bool IsPlaying
         {
             get
             {
@@ -198,15 +195,9 @@ namespace LitMotion.Animation
             }
         }
 
-        void OnDestroy()
+        protected override async Awaitable PlayAsync(CancellationToken token)
         {
-            Stop();
-        }
-
-        protected override async Awaitable StartPlayAsync(CancellationToken token)
-        {
-            Play();
-            while (IsPlaying) await Awaitable.NextFrameAsync(token);
+            while (!token.IsCancellationRequested && IsPlaying) await Awaitable.NextFrameAsync(token);
         }
     }
 }

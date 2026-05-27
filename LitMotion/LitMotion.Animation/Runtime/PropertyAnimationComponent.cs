@@ -10,9 +10,9 @@ namespace LitMotion.Animation
         where TOptions : unmanaged, IMotionOptions
         where TAdapter : unmanaged, IMotionAdapter<TValue, TOptions>
     {
-        [SerializeField] TObject target;
-        [SerializeField] SerializableMotionSettings<TValue, TOptions> settings;
-        [SerializeField] bool relative = true;
+        [SerializeField] protected TObject target;
+        [SerializeField] protected SerializableMotionSettings<TValue, TOptions> settings;
+        [SerializeField] protected bool relative = true;
 
         TValue startValue;
 

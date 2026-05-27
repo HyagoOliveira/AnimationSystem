@@ -82,6 +82,13 @@ namespace LitMotion.Animation.Components
             target.color = c;
         }
     }
-}
 
+    [Serializable]
+    [LitMotionAnimationComponentMenu("UI/TextMesh Pro/Visible Characters")]
+    public sealed class TMPTextVisibleCharactersAnimation : IntPropertyAnimationComponent<TMP_Text>
+    {
+        protected override int GetValue(TMP_Text target) => target.maxVisibleCharacters;
+        protected override void SetValue(TMP_Text target, in int value) => target.maxVisibleCharacters = value;
+    }
+}
 #endif
