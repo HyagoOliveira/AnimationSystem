@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using ActionCode.AnimationSystem;
 using LitMotion.Collections;
 using UnityEngine;
@@ -193,11 +192,6 @@ namespace LitMotion.Animation
 
                 return false;
             }
-        }
-
-        protected override async Awaitable PlayAsync(CancellationToken token)
-        {
-            while (!token.IsCancellationRequested && IsPlaying) await Awaitable.NextFrameAsync(token);
         }
     }
 }
