@@ -75,7 +75,7 @@ namespace ActionCode.AnimationSystem
             return hasIdentifier ? identifier : base.ToString();
         }
 
-        protected async Awaitable PlayAsync(CancellationToken token)
+        protected virtual async Awaitable PlayAsync(CancellationToken token)
         {
             while (!token.IsCancellationRequested && IsPlaying) await Awaitable.NextFrameAsync(token);
         }
