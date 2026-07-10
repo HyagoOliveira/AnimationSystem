@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Core animations: AlphaAnimation and RotationAnimation
 
+### Removed
+- LitMotion and LitMotion.Animation packages (not compatible with Unity 6.5)
+
 ## [0.2.0] - 2026-05-27
 ### Added
 - TMP Text Visible Characters Animation 
