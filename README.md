@@ -2,7 +2,6 @@
 
 * Scripts to improve animation workflow
 * Unity minimum version: **6000.3**
-* LitMotion Version: **2.0.1**
 * License: **MIT**
 
 ## Summary
