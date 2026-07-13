@@ -6,17 +6,25 @@
 
 ## Summary
 
-Components to animate GameOjects in runtime.
+Components to animate GameOjects at runtime.
+
+In the Inspector, click on the Add Component button > Animation and select the category to animate.
 
 ## How To Use
 
 ### Using Ease Animation Curves
 
+You can use Sine, Cosine, Elastic and Bounce (In, Out or InOut) ease Animation curves. First, you need to add those curves into your project.
+
 Find your Presets folder location by going into any AnimationCurve Window and doing the following:
 
 ![FindingPresetsFolder](/Docs~/FindingPresetsFolder.png)
 
-Put the [Ease file](/Docs~/Ease.curves) inside this Presets folder. You gonna see a collection of Ease Animation curves:
+Put the [Ease file](/Docs~/Ease.curves) inside this Presets folder. Back to Unity, select the Ease Presets:
+
+![FindingPresetsFolder](/Docs~/SelecEaseAnimationCurves.png)
+
+You gonna see a collection of Ease Animation curves:
 
 ![FindingPresetsFolder](/Docs~/EaseAnimationcurves.png)
 
