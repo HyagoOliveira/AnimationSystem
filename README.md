@@ -8,13 +8,13 @@
 
 Components to animate GameOjects at runtime.
 
-In the Inspector, click on the Add Component button > Animation and select the category to animate.
+In the Inspector, click on the **Add Component** button > **Animation** and select the category to start to animate.
 
 ## How To Use
 
 ### Using Ease Animation Curves
 
-You can use Sine, Cosine, Elastic and Bounce (In, Out or InOut) ease Animation curves. First, you need to add those curves into your project.
+You can use Sine, Cosine, Elastic and Bounce (In, Out or both InOut) ease Animation Curves. To do so, first you'll need to add those curves into your project.
 
 Find your Presets folder location by going into any AnimationCurve Window and doing the following:
 
