@@ -10,16 +10,17 @@ namespace ActionCode.AnimationSystem
         /// <summary>
         /// Resets the animation curve to a flat constant curve with a single keyframe at value 0.
         /// </summary>
-        /// <remarks>Same as <code>AnimationCurve.Constant(timeStart: 0f, timeEnd: 1f, value: 0f);</code></remarks>
+        /// <remarks>Same as <code>AnimationCurve.Constant(timeStart: 0f, timeEnd: 1f, value);</code></remarks>
         /// <param name="curve"><inheritdoc cref="SetAsSineWave(AnimationCurve, float, int)" path="/param[@name='curve']"/></param>
-        public static void Reset(this AnimationCurve curve)
+        /// <param name="value">The keyframe value.</param>
+        public static void Reset(this AnimationCurve curve, float value = 0f)
         {
             if (curve == null) return;
 
             curve.keys = new[]
             {
-                new Keyframe(0f, 0f),
-                new Keyframe(1f, 0f)
+                new Keyframe(0f, value),
+                new Keyframe(1f, value)
             };
         }
 

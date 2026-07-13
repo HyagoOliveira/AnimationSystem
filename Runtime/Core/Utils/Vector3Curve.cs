@@ -9,11 +9,11 @@ namespace ActionCode.AnimationSystem
         public AnimationCurve curveY = new();
         public AnimationCurve curveZ = new();
 
-        public void Reset()
+        public void Reset(float value = 0f)
         {
-            curveX.Reset();
-            curveY.Reset();
-            curveZ.Reset();
+            curveX.Reset(value);
+            curveY.Reset(value);
+            curveZ.Reset(value);
         }
 
         public Vector3 Evaluate(float time) => new(
