@@ -11,9 +11,9 @@ namespace ActionCode.AnimationSystem
 
         public void Reset()
         {
-            curveX = AnimationCurve.Constant(timeStart: 0f, timeEnd: 1f, value: 0f);
-            curveY = AnimationCurve.Constant(timeStart: 0f, timeEnd: 1f, value: 0f);
-            curveZ = AnimationCurve.Constant(timeStart: 0f, timeEnd: 1f, value: 0f);
+            curveX.Reset();
+            curveY.Reset();
+            curveZ.Reset();
         }
 
         public Vector3 Evaluate(float time) => new(

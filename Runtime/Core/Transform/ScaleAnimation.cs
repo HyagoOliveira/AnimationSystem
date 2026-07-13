@@ -11,9 +11,14 @@ namespace ActionCode.AnimationSystem
     [AddComponentMenu("Animation/Transform/Scale")]
     public sealed class ScaleAnimation : AbstractCoreAnimation
     {
-        [Space]
         [SerializeField, Tooltip("The curve driving the scale animation.")]
         private AnimationCurve scaleCurve;
+
+        protected override void Reset()
+        {
+            base.Reset();
+            scaleCurve.Reset();
+        }
 
         public void SetScale(float value) => transform.localScale = Vector3.one * value;
 
