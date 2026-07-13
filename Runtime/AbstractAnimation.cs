@@ -8,19 +8,21 @@ namespace ActionCode.AnimationSystem
     /// </summary>
     public abstract class AbstractAnimation : MonoBehaviour
     {
-        [SerializeField, Tooltip("The animation identifier.")]
-        private string identifier;
-        public bool playOnAwake = true;
+        [Tooltip("The animation identifier.")]
+        public string identifier;
+        [Tooltip("Wether to play when component is enabled.")]
+        public bool playOnEnable = true;
 
-        public string Identifier => identifier;
         public virtual bool IsPaused { get; private set; }
         public virtual bool IsPlaying { get; private set; }
 
         private CancellationTokenSource cancelationSource;
 
+        protected virtual void Reset() => SetIdentifier();
+
         private void OnEnable()
         {
-            if (playOnAwake) Play();
+            if (playOnEnable) Play();
         }
 
         private void OnDisable() => Stop();
@@ -74,6 +76,8 @@ namespace ActionCode.AnimationSystem
             var hasIdentifier = !string.IsNullOrEmpty(identifier);
             return hasIdentifier ? identifier : base.ToString();
         }
+
+        protected virtual void SetIdentifier() => identifier = GetType().Name;
 
         protected virtual async Awaitable PlayAsync(CancellationToken token)
         {

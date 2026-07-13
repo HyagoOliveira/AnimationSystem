@@ -38,7 +38,7 @@ namespace ActionCode.AnimationSystem
         protected override void UpdateAnimation(float time)
         {
             base.UpdateAnimation(time);
-            var opacity = opacityCurve.Evaluate(CurrentTime);
+            var opacity = opacityCurve.Evaluate(CurrentTime * Speed);
 
             SetOpacity(opacity);
             CheckStopCondition(opacityCurve);

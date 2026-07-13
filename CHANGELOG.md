@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Ease Animation curves preset
 - Animation Curve Extensions
-- TextMesh Pro Visible Characters Animation component
+- Position Animation component
 - Scale Animation component
+- TextMesh Pro Visible Characters Animation component
 
 ## [0.3.0] - 2026-07-10
 ### Added

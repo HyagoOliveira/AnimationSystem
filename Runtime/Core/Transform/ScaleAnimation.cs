@@ -20,7 +20,7 @@ namespace ActionCode.AnimationSystem
         protected override void UpdateAnimation(float time)
         {
             base.UpdateAnimation(time);
-            var scale = scaleCurve.Evaluate(CurrentTime);
+            var scale = scaleCurve.Evaluate(CurrentTime * Speed);
 
             SetScale(scale);
             CheckStopCondition(scaleCurve);

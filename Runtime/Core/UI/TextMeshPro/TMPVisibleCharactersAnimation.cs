@@ -16,7 +16,11 @@ namespace ActionCode.AnimationSystem
         [SerializeField, Tooltip("The animation duration in seconds."), Min(0f)]
         private float duration = 0.4f;
 
-        private void Reset() => target = GetComponent<TMPro.TMP_Text>();
+        protected override void Reset()
+        {
+            base.Reset();
+            target = GetComponent<TMPro.TMP_Text>();
+        }
 
         public override void Play()
         {
