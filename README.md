@@ -20,6 +20,8 @@ Put the [Ease file](/Docs~/Ease.curves) inside this Presets folder. You gonna se
 
 ![FindingPresetsFolder](/Docs~/EaseAnimationcurves.png)
 
+You just need to do it once.
+
 ## Installation
 
 ### Using the Package Registry Server
