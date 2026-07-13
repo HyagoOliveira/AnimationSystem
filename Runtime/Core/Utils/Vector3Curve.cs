@@ -30,10 +30,13 @@ namespace ActionCode.AnimationSystem
                 AbstractCoreAnimation.IsLoop(curveZ.postWrapMode);
             if (isLoop) return false;
 
-            return
-                currentTime >= AbstractCoreAnimation.GetDuration(curveX) ||
-                currentTime >= AbstractCoreAnimation.GetDuration(curveY) ||
-                currentTime >= AbstractCoreAnimation.GetDuration(curveZ);
+            var minDuration = Mathf.Min(
+                AbstractCoreAnimation.GetDuration(curveX),
+                AbstractCoreAnimation.GetDuration(curveY),
+                AbstractCoreAnimation.GetDuration(curveZ)
+            );
+
+            return currentTime >= minDuration;
         }
     }
 }
