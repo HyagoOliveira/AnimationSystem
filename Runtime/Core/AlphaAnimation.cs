@@ -22,8 +22,6 @@ namespace ActionCode.AnimationSystem
         [SerializeField] private UnityEngine.UI.Shadow shadow;
 #endif
 
-        public float CurrentTime { get; private set; }
-
         private void OnDisable() => Stop();
 
         public void SetOpacity(float opacity)
@@ -38,30 +36,11 @@ namespace ActionCode.AnimationSystem
 
         protected override void UpdateAnimation(float time)
         {
-            CurrentTime += time;
+            base.UpdateAnimation(time);
             var opacity = opacityCurve.Evaluate(CurrentTime);
+
             SetOpacity(opacity);
-            CheckStopCondition();
+            CheckStopCondition(opacityCurve);
         }
-
-        public override void Stop()
-        {
-            base.Stop();
-            CurrentTime = 0f;
-        }
-
-        private void CheckStopCondition()
-        {
-            if (HasCurveFinished(opacityCurve, CurrentTime)) Stop();
-        }
-
-        public static bool HasCurveFinished(AnimationCurve curve, float currentTime)
-        {
-            var isLoop = curve.postWrapMode is WrapMode.Loop or WrapMode.PingPong;
-            if (isLoop) return false;
-            return currentTime >= GetDuration(curve);
-        }
-
-        public static float GetDuration(AnimationCurve curve) => curve.keys.Length > 0 ? curve.keys[^1].time : 0f;
     }
 }
