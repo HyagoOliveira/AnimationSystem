@@ -12,7 +12,7 @@ namespace ActionCode.AnimationSystem
     public sealed class PositionAnimation : AbstractCoreAnimation
     {
         [SerializeField, Tooltip("The curve driving the position animation.")]
-        private Vector3Curve positionCurve;
+        private Vector3Curve positionCurve = new();
 
         private Vector3 originalPosition;
 
@@ -24,11 +24,11 @@ namespace ActionCode.AnimationSystem
 
         private void Awake() => originalPosition = transform.position;
 
-        protected override void UpdateAnimation(float time)
+        protected override void UpdateAnimation()
         {
-            base.UpdateAnimation(time);
+            base.UpdateAnimation();
 
-            var position = positionCurve.Evaluate(CurrentTime * Speed);
+            var position = positionCurve.Evaluate(CurrentTime);
             transform.position = originalPosition + position;
 
             CheckStopCondition(positionCurve);

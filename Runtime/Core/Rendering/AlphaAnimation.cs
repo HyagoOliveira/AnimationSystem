@@ -35,11 +35,11 @@ namespace ActionCode.AnimationSystem
 #endif
         }
 
-        protected override void UpdateAnimation(float time)
+        protected override void UpdateAnimation()
         {
-            base.UpdateAnimation(time);
-            var opacity = opacityCurve.Evaluate(CurrentTime * Speed);
+            base.UpdateAnimation();
 
+            var opacity = opacityCurve.Evaluate(CurrentTime);
             SetOpacity(opacity);
             CheckStopCondition(opacityCurve);
         }

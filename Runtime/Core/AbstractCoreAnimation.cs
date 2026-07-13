@@ -9,24 +9,15 @@ namespace ActionCode.AnimationSystem
     {
         [Tooltip("If enabled, animation will play even if Time.deltaTime = 0")]
         public bool useUnscaledTime;
-        [SerializeField, Tooltip("The animation speed."), Min(0f)]
-        private float speed = 1f;
-
-        /// <summary>
-        /// The animation speed.
-        /// </summary>
-        public float Speed
-        {
-            get => speed;
-            set => speed = Mathf.Max(value, 0f);
-        }
+        [Tooltip("The animation speed.")]
+        public float speed = 1f;
 
         /// <summary>
         /// The animation current time.
         /// </summary>
         public float CurrentTime { get; private set; }
 
-        private void Update() => UpdateAnimation(GetDeltaTime());
+        private void Update() => UpdateAnimation();
 
         public override void Play()
         {
@@ -41,7 +32,7 @@ namespace ActionCode.AnimationSystem
             CurrentTime = 0f;
         }
 
-        protected virtual void UpdateAnimation(float time) => CurrentTime += time;
+        protected virtual void UpdateAnimation() => CurrentTime += GetDeltaTime() * speed;
 
         protected void CheckStopCondition(AnimationCurve curve)
         {
@@ -53,7 +44,7 @@ namespace ActionCode.AnimationSystem
             if (curve.HasCurveFinished(CurrentTime)) Stop();
         }
 
-        private float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+        protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         public static bool IsLoop(WrapMode mode) => mode is WrapMode.Loop or WrapMode.PingPong;
 

@@ -11,12 +11,12 @@ namespace ActionCode.AnimationSystem
         [Tooltip("Whether to rotate locally or relative to the Scene in world space.")]
         public Space relation = Space.Self;
         [Tooltip("The axis used to rotate.")]
-        public Vector3 axis = Vector3.up;
+        public Vector3 axisSpeed = Vector3.up;
 
-        protected override void UpdateAnimation(float time)
+        protected override void UpdateAnimation()
         {
-            base.UpdateAnimation(time);
-            var velocity = Speed * time * axis;
+            base.UpdateAnimation();
+            var velocity = GetDeltaTime() * speed * axisSpeed;
             transform.Rotate(velocity, relation);
         }
     }

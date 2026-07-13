@@ -14,10 +14,10 @@ namespace ActionCode.AnimationSystem
 
         [SerializeField, Tooltip("The curve driving all axis in the scale animation.")]
         [ShowIf(nameof(separeteAxis), operatorType: LogicalOperatorType.Equals, value: false)]
-        private AnimationCurve uniqueCurve;
+        private AnimationCurve uniqueCurve = new();
         [SerializeField, Tooltip("The curve driving each axis in the scale animation.")]
         [ShowIf(nameof(separeteAxis))]
-        private Vector3Curve separateCurve;
+        private Vector3Curve separateCurve = new();
 
         protected override void Reset()
         {
@@ -26,18 +26,18 @@ namespace ActionCode.AnimationSystem
             separateCurve.Reset(1f);
         }
 
-        protected override void UpdateAnimation(float time)
+        protected override void UpdateAnimation()
         {
-            base.UpdateAnimation(time);
+            base.UpdateAnimation();
 
             if (separeteAxis)
             {
-                transform.localScale = separateCurve.Evaluate(CurrentTime * Speed);
+                transform.localScale = separateCurve.Evaluate(CurrentTime);
                 CheckStopCondition(separateCurve);
             }
             else
             {
-                transform.localScale = Vector3.one * uniqueCurve.Evaluate(CurrentTime * Speed);
+                transform.localScale = Vector3.one * uniqueCurve.Evaluate(CurrentTime);
                 CheckStopCondition(uniqueCurve);
             }
         }
