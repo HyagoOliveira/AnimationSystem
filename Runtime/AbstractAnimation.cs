@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Threading;
+using UnityEngine;
 
 namespace ActionCode.AnimationSystem
 {
@@ -77,8 +77,10 @@ namespace ActionCode.AnimationSystem
 
         protected virtual async Awaitable PlayAsync(CancellationToken token)
         {
-            while (!token.IsCancellationRequested && IsPlaying) await Awaitable.NextFrameAsync(token);
+            while (CanPlayAsync(token)) await Awaitable.NextFrameAsync(token);
         }
+
+        protected bool CanPlayAsync(CancellationToken token) => !token.IsCancellationRequested && IsPlaying;
 
         private void Cancel()
         {

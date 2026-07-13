@@ -15,12 +15,14 @@ namespace ActionCode.AnimationSystem
         [SerializeField, Tooltip("The curve driving the scale animation.")]
         private AnimationCurve scaleCurve;
 
+        public void SetScale(float value) => transform.localScale = Vector3.one * value;
+
         protected override void UpdateAnimation(float time)
         {
             base.UpdateAnimation(time);
             var scale = scaleCurve.Evaluate(CurrentTime);
 
-            transform.localScale = Vector3.one * scale;
+            SetScale(scale);
             CheckStopCondition(scaleCurve);
         }
     }
