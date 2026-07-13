@@ -5,6 +5,7 @@ namespace ActionCode.AnimationSystem
     /// <summary>
     /// Rotation animation for the local transform.
     /// </summary>
+    [AddComponentMenu("Animation/Transform/Rotation")]
     public sealed class RotationAnimation : AbstractCoreAnimation
     {
         public Space relation = Space.Self;

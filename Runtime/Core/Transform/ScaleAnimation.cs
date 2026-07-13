@@ -8,6 +8,7 @@ namespace ActionCode.AnimationSystem
     /// Use the <see cref="scaleCurve"/> curve to animate the scale.
     /// </para>
     /// </summary>
+    [AddComponentMenu("Animation/Transform/Scale")]
     public sealed class ScaleAnimation : AbstractCoreAnimation
     {
         [Space]
