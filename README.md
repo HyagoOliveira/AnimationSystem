@@ -8,22 +8,17 @@
 
 Components to animate GameOjects in runtime.
 
-Also, this packges uses [LitMotion](https://annulusgames.github.io/LitMotion/) and [LitMotion.Animation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation-overview.html) as the Tween Library.
-
 ## How To Use
 
-### Using LitMotion
+### Using Ease Animation Curves
 
-Add the LitMotionAnimation component into a gameobject and configure it. Check the [official documentation](https://annulusgames.github.io/LitMotion/articles/en/litmotion-animation.html).
+Find your Presets folder location by going into any AnimationCurve Window and doing the following:
 
-## How to upgrade LitMotion
+![FindingPresetsFolder](/Docs~/FindingPresetsFolder.png)
 
-1. Go to the [LitMotion Release Page](https://github.com/annulusgames/LitMotion/releases)
-2. Download the lasted release
-3. Paste `LitMotion` and `LitMotion.Animation` folders inside the local [LitMotion folder](/LitMotion).
-4. Redo the custom implementations:
-    - [Set LitMotionAnimationComponent Targets when reseted](https://github.com/HyagoOliveira/AnimationSystem/commit/887a0b90964472d2aeff89ebf6240ec1dba64ff5)
-    - [LitMotionAnimation implements AbstractAnimation](https://github.com/HyagoOliveira/AnimationSystem/commit/3d4762a3d6212440ec2113984a684db5a2137566)
+Put the [Ease file](/Docs~/Ease.curves) inside this Presets folder. You gonna see a collection of Ease Animation curves:
+
+![FindingPresetsFolder](/Docs~/EaseAnimationcurves.png)
 
 ## Installation
 
