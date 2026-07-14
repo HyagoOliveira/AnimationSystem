@@ -22,6 +22,11 @@
             "name": "com.unity.textmeshpro",
             "expression": "5.0.0",
             "define": "UNITY_TMP"
+        },
+        {
+            "name": "com.unity.modules.director",
+            "expression": "1.0.0",
+            "define": "UNITY_DIRECTOR"
         }
     ],
     "noEngineReferences": false

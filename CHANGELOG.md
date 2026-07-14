@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Ease Animation curves preset
 - Animation Curve Extensions
+- PlayableDirectorHandler component
 - Audio Volume Animation component
 - Position (Shake) Animation component
 - Position (Punch) Animation component
