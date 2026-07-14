@@ -8,10 +8,12 @@ namespace ActionCode.AnimationSystem
     /// </summary>
     public abstract class AbstractAnimation : MonoBehaviour
     {
-        [Tooltip("The animation identifier.")]
+        [Tooltip("The animation identifier. Use to differentiate in GameObjects with multiple animations.")]
         public string identifier;
         [Tooltip("Wether to play when component is enabled.")]
         public bool playOnEnable = true;
+        [Tooltip("If enabled, animation will play even if Time.deltaTime = 0")]
+        public bool useUnscaledTime;
 
         public virtual bool IsPaused { get; private set; }
         public virtual bool IsPlaying { get; private set; }
@@ -35,11 +37,7 @@ namespace ActionCode.AnimationSystem
 
         public virtual void Pause() => IsPaused = true;
 
-        public virtual void Play()
-        {
-            IsPaused = false;
-            IsPlaying = true;
-        }
+        public virtual void Play() => EnablePlayMode();
 
         /// <summary>
         /// Plays this animation asynchronously.
@@ -56,7 +54,7 @@ namespace ActionCode.AnimationSystem
 
             try
             {
-                Play();
+                EnablePlayMode();
                 await PlayAsync(cancelationSource.Token);
             }
             catch (System.OperationCanceledException) { }
@@ -85,6 +83,13 @@ namespace ActionCode.AnimationSystem
         }
 
         protected bool CanPlayAsync(CancellationToken token) => !token.IsCancellationRequested && IsPlaying;
+        protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+        private void EnablePlayMode()
+        {
+            IsPaused = false;
+            IsPlaying = true;
+        }
 
         private void Cancel()
         {

@@ -7,8 +7,6 @@ namespace ActionCode.AnimationSystem
     /// </summary>
     public abstract class AbstractCoreAnimation : AbstractAnimation
     {
-        [Tooltip("If enabled, animation will play even if Time.deltaTime = 0")]
-        public bool useUnscaledTime;
         [Tooltip("The animation speed.")]
         public float speed = 1f;
 
@@ -43,8 +41,6 @@ namespace ActionCode.AnimationSystem
         {
             if (curve.HasCurveFinished(CurrentTime)) Stop();
         }
-
-        protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         public static bool IsLoop(WrapMode mode) => mode is WrapMode.Loop or WrapMode.PingPong;
 
