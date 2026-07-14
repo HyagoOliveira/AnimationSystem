@@ -7,7 +7,7 @@ namespace ActionCode.AnimationSystem
     /// Scale animation for the local transform.
     /// </summary>
     [AddComponentMenu("Animation/Transform/Scale")]
-    public sealed class ScaleAnimation : AbstractCoreAnimation
+    public sealed class ScaleAnimation : AbstractAnimation
     {
         [SerializeField, Tooltip("Wether to separate each axis scale curve.")]
         private bool separeteAxis;
@@ -33,12 +33,12 @@ namespace ActionCode.AnimationSystem
             if (separeteAxis)
             {
                 transform.localScale = separateCurve.Evaluate(CurrentTime);
-                CheckStopCondition(separateCurve);
+                if (separateCurve.IsFinished(CurrentTime)) CancelAnimation();
             }
             else
             {
                 transform.localScale = Vector3.one * uniqueCurve.Evaluate(CurrentTime);
-                CheckStopCondition(uniqueCurve);
+                if (uniqueCurve.IsFinished(CurrentTime)) CancelAnimation();
             }
         }
     }

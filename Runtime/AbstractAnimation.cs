@@ -10,15 +10,20 @@ namespace ActionCode.AnimationSystem
     {
         [Tooltip("The animation identifier. Use to differentiate in GameObjects with multiple animations.")]
         public string identifier;
+
+        [Space]
         [Tooltip("Wether to play when component is enabled.")]
         public bool playOnEnable = true;
         [Tooltip("If enabled, animation will play even if Time.deltaTime = 0")]
         public bool useUnscaledTime;
 
-        public virtual bool IsPaused { get; private set; }
-        public virtual bool IsPlaying { get; private set; }
+        [Space]
+        [Tooltip("The animation speed.")]
+        public float speed = 1f;
 
-        private CancellationTokenSource cancelationSource;
+        public bool IsPaused { get; private set; }
+        public bool IsPlaying { get; private set; }
+        public float CurrentTime { get; private set; }
 
         protected virtual void Reset() => SetIdentifier();
 
@@ -29,44 +34,40 @@ namespace ActionCode.AnimationSystem
 
         private void OnDisable() => Stop();
 
-        public virtual void Restart()
+        public void Restart()
         {
             Stop();
             Play();
         }
 
-        public virtual void Pause() => IsPaused = true;
+        public void Pause() => IsPaused = true;
 
-        public virtual void Play() => EnablePlayMode();
-
-        /// <summary>
-        /// Plays this animation asynchronously.
-        /// </summary>
-        /// <remarks>
-        /// You can stop the animation using the <see cref="Stop"/> function or disable/destroy this instance.
-        /// </remarks>
-        /// <param name="cancellation">The cancellation source to cancel this animation.</param>
-        /// <returns>An asynchronous operation.</returns>
-        public async Awaitable PlayAsync(CancellationTokenSource cancellation = null)
+        public void Play()
         {
-            Cancel();
-            cancelationSource = cancellation ?? new CancellationTokenSource();
+            EnablePlayMode();
+            _ = PlayAsync(destroyCancellationToken);
+        }
+
+        public async Awaitable PlayAsync(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
 
             try
             {
                 EnablePlayMode();
-                await PlayAsync(cancelationSource.Token);
+                StartPlay();
+                await UpdateAnimationAsync(cancellationToken);
             }
-            catch (System.OperationCanceledException) { }
+            catch (System.OperationCanceledException) { } // implementations may cancel animation
             catch (System.Exception e) { Debug.LogException(e); }
             finally { Stop(); }
         }
 
-        public virtual void Stop()
+        public void Stop()
         {
             IsPaused = false;
             IsPlaying = false;
-            Cancel();
+            CurrentTime = 0f;
         }
 
         public override string ToString()
@@ -76,26 +77,30 @@ namespace ActionCode.AnimationSystem
         }
 
         protected virtual void SetIdentifier() => identifier = GetType().Name;
+        protected virtual void StartPlay() => CurrentTime = 0f;
 
-        protected virtual async Awaitable PlayAsync(CancellationToken token)
+        protected virtual async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
         {
-            while (CanPlayAsync(token)) await Awaitable.NextFrameAsync(token);
+            while (CanPlay(cancellationToken))
+            {
+                UpdateAnimation();
+                UpdateCurrentTime();
+                await Awaitable.NextFrameAsync(cancellationToken);
+            }
         }
 
-        protected bool CanPlayAsync(CancellationToken token) => !token.IsCancellationRequested && IsPlaying;
+        protected virtual void UpdateAnimation() { }
+
+        protected void CancelAnimation() => throw new System.OperationCanceledException();
+        protected void UpdateCurrentTime() => CurrentTime += GetDeltaTime() * speed;
+        protected bool CanPlay(CancellationToken cancellationToken) => !cancellationToken.IsCancellationRequested && IsPlaying;
         protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         private void EnablePlayMode()
         {
+            enabled = true;
             IsPaused = false;
             IsPlaying = true;
-        }
-
-        private void Cancel()
-        {
-            cancelationSource?.Cancel();
-            cancelationSource?.Dispose();
-            cancelationSource = null;
         }
     }
 }

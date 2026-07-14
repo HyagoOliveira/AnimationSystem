@@ -9,7 +9,7 @@ namespace ActionCode.AnimationSystem
     /// </para>
     /// </summary>
     [AddComponentMenu("Animation/Transform/Position")]
-    public sealed class PositionAnimation : AbstractCoreAnimation
+    public sealed class PositionAnimation : AbstractAnimation
     {
         [SerializeField, Tooltip("The curve driving the position animation.")]
         private Vector3Curve positionCurve = new();
@@ -22,7 +22,11 @@ namespace ActionCode.AnimationSystem
             positionCurve.Reset();
         }
 
-        private void Awake() => originalPosition = transform.localPosition;
+        protected override void StartPlay()
+        {
+            base.StartPlay();
+            originalPosition = transform.localPosition;
+        }
 
         protected override void UpdateAnimation()
         {
@@ -31,7 +35,7 @@ namespace ActionCode.AnimationSystem
             var position = positionCurve.Evaluate(CurrentTime);
             transform.localPosition = originalPosition + position;
 
-            CheckStopCondition(positionCurve);
+            if (positionCurve.IsFinished(CurrentTime)) CancelAnimation();
         }
     }
 }

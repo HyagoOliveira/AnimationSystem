@@ -22,29 +22,21 @@ namespace ActionCode.AnimationSystem
             target = GetComponent<TMPro.TMP_Text>();
         }
 
-        public override void Play()
-        {
-            base.Play();
-            _ = PlayAsync(destroyCancellationToken);
-        }
-
-        protected override async Awaitable PlayAsync(CancellationToken token)
+        protected override async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
         {
             target.ForceMeshUpdate();
-
-            var currentTime = 0f;
             var totalCharacters = target.textInfo.characterCount;
 
             target.maxVisibleCharacters = 0;
 
-            while (CanPlayAsync(token) && currentTime < duration)
+            while (CanPlay(cancellationToken) && CurrentTime < duration)
             {
-                currentTime += Time.unscaledDeltaTime;
-                var progress = currentTime / duration;
+                UpdateCurrentTime();
+                var progress = CurrentTime / duration;
 
                 target.maxVisibleCharacters = (int)(progress * totalCharacters);
 
-                await Awaitable.NextFrameAsync(token);
+                await Awaitable.NextFrameAsync(cancellationToken);
             }
 
             target.maxVisibleCharacters = totalCharacters;

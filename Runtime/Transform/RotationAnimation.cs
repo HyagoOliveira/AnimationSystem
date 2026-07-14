@@ -7,7 +7,7 @@ namespace ActionCode.AnimationSystem
     /// Rotation animation for the local transform.
     /// </summary>
     [AddComponentMenu("Animation/Transform/Rotation")]
-    public sealed class RotationAnimation : AbstractCoreAnimation
+    public sealed class RotationAnimation : AbstractAnimation
     {
         [Tooltip("Wether to use animation curves for every axis.")]
         public bool useAnimationCurves;
@@ -17,7 +17,7 @@ namespace ActionCode.AnimationSystem
         public Space relation = Space.Self;
         [Tooltip("The axis used to rotate.")]
         [ShowIf(nameof(useAnimationCurves), operatorType: LogicalOperatorType.Equals, value: false)]
-        public Vector3 axisSpeed = Vector3.up;
+        public Vector3 axisSpeed = Vector3.up * -30f;
 
         [Tooltip("The animation curves for every axis")]
         [ShowIf(nameof(useAnimationCurves))]
@@ -35,8 +35,8 @@ namespace ActionCode.AnimationSystem
 
             if (useAnimationCurves)
             {
-                var rotation = axisCurve.Evaluate(CurrentTime);
-                transform.localEulerAngles = rotation;
+                transform.localEulerAngles = axisCurve.Evaluate(CurrentTime);
+                if (axisCurve.IsFinished(CurrentTime)) CancelAnimation();
             }
             else
             {

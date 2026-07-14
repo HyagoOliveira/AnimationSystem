@@ -7,6 +7,7 @@ namespace ActionCode.AnimationSystem
     /// </summary>
     public static class AnimationCurveExtension
     {
+        #region CORE
         /// <summary>
         /// Resets the animation curve to a flat constant curve with a single keyframe at value 0.
         /// </summary>
@@ -23,6 +24,40 @@ namespace ActionCode.AnimationSystem
                 new Keyframe(1f, value)
             };
         }
+
+        /// <summary>
+        /// Returns wether the animation curve is in loop.
+        /// </summary>
+        /// <param name="curve"><inheritdoc cref="SetAsSineWave(AnimationCurve, float, int)" path="/param[@name='curve']"/></param>
+        /// <returns>Wether the animation curve is in loop.</returns>
+        public static bool IsLoop(this AnimationCurve curve) => curve.postWrapMode is WrapMode.Loop or WrapMode.PingPong;
+
+        /// <summary>
+        /// Returns wether the animation curve is playing.
+        /// </summary>
+        /// <param name="curve"><inheritdoc cref="SetAsSineWave(AnimationCurve, float, int)" path="/param[@name='curve']"/></param>
+        /// <param name="time"><inheritdoc cref="AnimationCurve.Evaluate(float)" path="/param[@name='time']"/></param>
+        /// <returns>Wether the animation curve is playing.</returns>
+        public static bool IsPlaying(this AnimationCurve curve, float time) => !IsFinished(curve, time);
+
+        /// <summary>
+        /// Returns wether the animation curve has finish.
+        /// </summary>
+        /// <param name="curve"><inheritdoc cref="SetAsSineWave(AnimationCurve, float, int)" path="/param[@name='curve']"/></param>
+        /// <param name="time"><inheritdoc cref="AnimationCurve.Evaluate(float)" path="/param[@name='time']"/></param>
+        /// <returns>Wether the animation curve has finish.</returns>
+        public static bool IsFinished(this AnimationCurve curve, float time)
+        {
+            if (IsLoop(curve)) return false;
+            return time >= GetDuration(curve);
+        }
+
+        /// <summary>
+        /// Returns the curve duration in seconds.
+        /// </summary>
+        /// <param name="curve"><inheritdoc cref="SetAsSineWave(AnimationCurve, float, int)" path="/param[@name='curve']"/></param>
+        /// <returns>The curve duration.</returns>
+        public static float GetDuration(this AnimationCurve curve) => curve != null && curve.keys.Length > 0 ? curve.keys[^1].time : 0f;
 
         /// <summary>
         /// Reshapes the animation curve into a preset shape based on the provided <see cref="AnimationEase"/>.
@@ -43,6 +78,7 @@ namespace ActionCode.AnimationSystem
                 case AnimationEase.BounceOut: curve.SetAsBounceOut(); break;
             }
         }
+        #endregion
 
         #region SINE AND COSINE
         /// <summary>

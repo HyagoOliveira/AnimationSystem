@@ -18,30 +18,23 @@ namespace ActionCode.AnimationSystem
         [Min(0f), Tooltip("The maximum distance the transform can move from its initial position.")]
         public float strength = 0.1f;
 
-        public override void Play()
+        protected override async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
         {
-            base.Play();
-            _ = PlayAsync(destroyCancellationToken);
-        }
+            var initialPosition = transform.localPosition;
 
-        protected override async Awaitable PlayAsync(CancellationToken token)
-        {
-            var elapsedTime = 0f;
-            var initialLocalPosition = transform.localPosition;
-
-            while (CanPlayAsync(token) && elapsedTime < duration)
+            while (CanPlay(cancellationToken) && CurrentTime < duration)
             {
-                elapsedTime += GetDeltaTime();
+                UpdateCurrentTime();
 
-                var damper = 1f - (elapsedTime / duration);
+                var damper = 1f - (CurrentTime / duration);
                 var randomOffset = damper * strength * Random.insideUnitSphere;
 
-                transform.localPosition = initialLocalPosition + randomOffset;
+                transform.localPosition = initialPosition + randomOffset;
 
-                await Awaitable.NextFrameAsync(token);
+                await Awaitable.NextFrameAsync(cancellationToken);
             }
 
-            transform.localPosition = initialLocalPosition;
+            transform.localPosition = initialPosition;
         }
     }
 }

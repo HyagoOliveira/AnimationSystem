@@ -9,7 +9,7 @@ namespace ActionCode.AnimationSystem
     /// </para>
     /// </summary>
     [AddComponentMenu("Animation/Rendering/Alpha")]
-    public sealed class AlphaAnimation : AbstractCoreAnimation
+    public sealed class AlphaAnimation : AbstractAnimation
     {
         [Space]
         [SerializeField, Tooltip("The curve driving the opacity animation.")]
@@ -37,12 +37,10 @@ namespace ActionCode.AnimationSystem
 #endif
         }
 
-        private void OnDisable() => Stop();
-
         public void SetOpacity(float opacity)
         {
             if (canvasGroup) canvasGroup.alpha = opacity;
-            if (spriteRenderer) spriteRenderer.color.WithAlpha(opacity);
+            if (spriteRenderer) spriteRenderer.color = spriteRenderer.color.WithAlpha(opacity);
 #if UNITY_UGUI
             if (graphic) graphic.color = graphic.color.WithAlpha(opacity);
             if (shadow) shadow.effectColor = shadow.effectColor.WithAlpha(opacity);
@@ -52,10 +50,8 @@ namespace ActionCode.AnimationSystem
         protected override void UpdateAnimation()
         {
             base.UpdateAnimation();
-
-            var opacity = opacityCurve.Evaluate(CurrentTime);
-            SetOpacity(opacity);
-            CheckStopCondition(opacityCurve);
+            SetOpacity(opacityCurve.Evaluate(CurrentTime));
+            if (opacityCurve.IsFinished(CurrentTime)) CancelAnimation();
         }
     }
 }

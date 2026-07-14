@@ -14,7 +14,7 @@ namespace ActionCode.AnimationSystem
     public sealed class PositionPunchAnimation : AbstractAnimation
     {
         [Tooltip("The direction and maximum distance of the initial impact force.")]
-        public Vector3 punchDirection = Vector3.right;
+        public Vector3 punchDirection = Vector3.up;
         [Min(0f), Tooltip("The total duration of the punch animation in seconds.")]
         public float duration = 0.5f;
         [Min(0f), Tooltip("How fast the object oscillates back and forth.")]
@@ -22,32 +22,26 @@ namespace ActionCode.AnimationSystem
         [Min(0f), Tooltip("How quickly the impact loses energy. Higher values mean a faster stabilization.")]
         public float decay = 4.5f;
 
-        public override void Play()
+        protected override async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
         {
-            base.Play();
-            _ = PlayAsync(destroyCancellationToken);
-        }
+            var initialPosition = transform.localPosition;
 
-        protected override async Awaitable PlayAsync(CancellationToken token)
-        {
-            var elapsedTime = 0f;
-            var initialLocalPosition = transform.localPosition;
-
-            while (CanPlayAsync(token) && elapsedTime < duration)
+            while (CanPlay(cancellationToken) && CurrentTime < duration)
             {
-                elapsedTime += GetDeltaTime();
-                var time = elapsedTime / duration;
+                UpdateCurrentTime();
+
+                var progress = CurrentTime / duration;
                 // Mathematical formula for a decaying sine wave (simulating a spring shock)
-                var decayFactor = Mathf.Exp(-decay * time);
-                var sineFactor = Mathf.Sin(time * frequency * 2f * Mathf.PI);
+                var decayFactor = Mathf.Exp(-decay * progress);
+                var sineFactor = Mathf.Sin(progress * frequency * 2f * Mathf.PI);
                 var offset = punchDirection * (decayFactor * sineFactor);
 
-                transform.localPosition = initialLocalPosition + offset;
+                transform.localPosition = initialPosition + offset;
 
-                await Awaitable.NextFrameAsync(token);
+                await Awaitable.NextFrameAsync(cancellationToken);
             }
 
-            transform.localPosition = initialLocalPosition;
+            transform.localPosition = initialPosition;
         }
     }
 }
