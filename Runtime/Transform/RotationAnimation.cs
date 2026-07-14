@@ -1,4 +1,4 @@
-using OneM.Attributes;
+using ActionCode.Attributes;
 using UnityEngine;
 
 namespace ActionCode.AnimationSystem
