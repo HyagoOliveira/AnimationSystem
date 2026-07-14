@@ -1,7 +1,7 @@
 {
   "name": "com.actioncode.animation-system",
   "displayName": "ActionCode-Animation System",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "unity": "6000.3",
   "description": "This package contains scripts to improve animation workflow.",
   "keywords": [
