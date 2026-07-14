@@ -22,14 +22,14 @@ namespace ActionCode.AnimationSystem
             positionCurve.Reset();
         }
 
-        private void Awake() => originalPosition = transform.position;
+        private void Awake() => originalPosition = transform.localPosition;
 
         protected override void UpdateAnimation()
         {
             base.UpdateAnimation();
 
             var position = positionCurve.Evaluate(CurrentTime);
-            transform.position = originalPosition + position;
+            transform.localPosition = originalPosition + position;
 
             CheckStopCondition(positionCurve);
         }

@@ -13,7 +13,7 @@ namespace ActionCode.AnimationSystem
     {
         [Space]
         [SerializeField, Tooltip("The curve driving the opacity animation.")]
-        private AnimationCurve opacityCurve;
+        private AnimationCurve opacityCurve = new();
 
         [Space]
         [SerializeField] private CanvasGroup canvasGroup;
@@ -22,6 +22,20 @@ namespace ActionCode.AnimationSystem
         [SerializeField] private UnityEngine.UI.Graphic graphic;
         [SerializeField] private UnityEngine.UI.Shadow shadow;
 #endif
+
+        protected override void Reset()
+        {
+            base.Reset();
+            opacityCurve.Reset(1f);
+
+            canvasGroup = GetComponent<CanvasGroup>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+#if UNITY_UGUI
+            UnityEngine.UI.Graphic graphic = GetComponent<UnityEngine.UI.Graphic>();
+            UnityEngine.UI.Shadow shadow = GetComponent<UnityEngine.UI.Shadow>();
+#endif
+        }
 
         private void OnDisable() => Stop();
 
