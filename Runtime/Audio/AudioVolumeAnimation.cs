@@ -7,7 +7,6 @@ namespace ActionCode.AnimationSystem
     /// Animates the volume of an AudioSource, creating a smooth fade transition between an initial and a final value over a specified duration.
     /// </summary>
     [AddComponentMenu("Animation/Audio/Volume")]
-    [RequireComponent(typeof(AudioSource))]
     public sealed class AudioVolumeAnimation : AbstractAnimation
     {
         [Tooltip("The local AudioSource component.")]
