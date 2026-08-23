@@ -8,7 +8,7 @@ namespace ActionCode.AnimationSystem
     /// Use the <see cref="opacityCurve"/> curve to animate the alpha from a UI component.
     /// </para>
     /// </summary>
-    [AddComponentMenu("Animation/Rendering/Alpha")]
+    [AddComponentMenu("Animation/Rendering/Alpha Animation")]
     public sealed class AlphaAnimation : AbstractAnimation
     {
         [Space]
@@ -16,11 +16,11 @@ namespace ActionCode.AnimationSystem
         private AnimationCurve opacityCurve = new();
 
         [Space]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        public CanvasGroup canvasGroup;
+        public SpriteRenderer spriteRenderer;
 #if UNITY_UGUI
-        [SerializeField] private UnityEngine.UI.Graphic graphic;
-        [SerializeField] private UnityEngine.UI.Shadow shadow;
+        public UnityEngine.UI.Graphic graphic;
+        public UnityEngine.UI.Shadow shadow;
 #endif
 
         protected override void Reset()

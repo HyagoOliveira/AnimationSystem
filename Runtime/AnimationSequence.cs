@@ -14,7 +14,11 @@ namespace ActionCode.AnimationSystem
         /// <summary>
         /// All the local animations.
         /// </summary>
-        public AbstractAnimation[] Animations => animations;
+        public AbstractAnimation[] Animations
+        {
+            get => animations;
+            set => animations = value;
+        }
 
         /// <summary>
         /// Finds all local animations if none is set.
@@ -31,7 +35,7 @@ namespace ActionCode.AnimationSystem
         public void FindAnimations() => animations = GetComponentsInChildren<AbstractAnimation>();
 
         /// <summary>
-        /// Plays all animations parallely.
+        /// Plays all animations at once.
         /// </summary>
         public void Play()
         {
@@ -49,6 +53,32 @@ namespace ActionCode.AnimationSystem
             foreach (var animation in animations)
             {
                 animation.Stop();
+            }
+        }
+
+        /// <summary>
+        /// Plays all animations, one after another.
+        /// </summary>
+        /// <returns>An asynchronous operation.</returns>
+        public async Awaitable PlayAsync()
+        {
+            foreach (var animation in animations)
+            {
+                // Starts all animations
+                animation.PlayFirstFrame();
+            }
+
+            foreach (var animation in animations)
+            {
+                await animation.PlayAsync();
+            }
+        }
+
+        public void ResetSpeed()
+        {
+            foreach (var animation in animations)
+            {
+                animation.ResetSpeed();
             }
         }
     }

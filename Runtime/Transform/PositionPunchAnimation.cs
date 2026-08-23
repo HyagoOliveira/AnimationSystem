@@ -10,7 +10,7 @@ namespace ActionCode.AnimationSystem
     /// Applies a directional impact force to the transform, making it oscillate like a physical spring. 
     /// The motion follows a precise decaying sine wave along a specific axis, making it ideal for weapon recoil or UI button clicks.
     /// </remarks>
-    [AddComponentMenu("Animation/Transform/Position (Punch)")]
+    [AddComponentMenu("Animation/Transform/Position (Punch) Animation")]
     public sealed class PositionPunchAnimation : AbstractAnimation
     {
         [Tooltip("The direction and maximum distance of the initial impact force.")]

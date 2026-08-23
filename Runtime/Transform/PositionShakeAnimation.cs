@@ -10,7 +10,7 @@ namespace ActionCode.AnimationSystem
     /// Vibrates the transform by applying chaotic, randomized offsets in a specified space. 
     /// The vibration intensity decays over time, making it ideal for explosions, damage feedback, or camera shakes.
     /// </remarks>
-    [AddComponentMenu("Animation/Transform/Position (Shake)")]
+    [AddComponentMenu("Animation/Transform/Position (Shake) Animation")]
     public sealed class PositionShakeAnimation : AbstractAnimation
     {
         [Min(0f), Tooltip("The total duration (in seconds) of the shake effect.")]

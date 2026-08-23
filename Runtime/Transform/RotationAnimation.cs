@@ -6,7 +6,7 @@ namespace ActionCode.AnimationSystem
     /// <summary>
     /// Rotation animation for the local transform.
     /// </summary>
-    [AddComponentMenu("Animation/Transform/Rotation")]
+    [AddComponentMenu("Animation/Transform/Rotation Animation")]
     public sealed class RotationAnimation : AbstractAnimation
     {
         [Tooltip("Wether to use animation curves for every axis.")]

@@ -6,7 +6,7 @@ namespace ActionCode.AnimationSystem
     /// <summary>
     /// Scale animation for the local transform.
     /// </summary>
-    [AddComponentMenu("Animation/Transform/Scale")]
+    [AddComponentMenu("Animation/Transform/Scale Animation")]
     public sealed class ScaleAnimation : AbstractAnimation
     {
         [SerializeField, Tooltip("Wether to separate each axis scale curve.")]

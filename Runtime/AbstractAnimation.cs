@@ -34,6 +34,8 @@ namespace ActionCode.AnimationSystem
 
         private void OnDisable() => Stop();
 
+        public void ResetSpeed() => speed = 1F;
+
         public void Restart()
         {
             Stop();
@@ -46,6 +48,12 @@ namespace ActionCode.AnimationSystem
         {
             EnablePlayMode();
             _ = PlayAsync(destroyCancellationToken);
+        }
+
+        public void PlayFirstFrame()
+        {
+            CurrentTime = 0f;
+            UpdateAnimation();
         }
 
         public async Awaitable PlayAsync(CancellationToken cancellationToken = default)

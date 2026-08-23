@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 
 namespace ActionCode.AnimationSystem
@@ -7,14 +6,14 @@ namespace ActionCode.AnimationSystem
     /// Visible Characters animation for Text Mesh Pro.
     /// </summary>
     [DisallowMultipleComponent]
-    [AddComponentMenu("Animation/UI/TextMesh Pro/Visible Characters")]
+    [AddComponentMenu("Animation/UI/TextMesh Pro/Visible Characters Animation")]
     public sealed class TMPVisibleCharactersAnimation : AbstractAnimation
     {
 #if UNITY_TMP
-        [SerializeField, Tooltip("The Text to animate the visible characters.")]
-        private TMPro.TMP_Text target;
-        [SerializeField, Tooltip("The animation duration in seconds."), Min(0f)]
-        private float duration = 0.4f;
+        [Tooltip("The Text to animate the visible characters.")]
+        public TMPro.TMP_Text target;
+        [Tooltip("The animation duration in seconds."), Min(0f)]
+        public float duration = 0.4f;
 
         protected override void Reset()
         {
@@ -22,7 +21,7 @@ namespace ActionCode.AnimationSystem
             target = GetComponent<TMPro.TMP_Text>();
         }
 
-        protected override async Awaitable UpdateAnimationAsync(CancellationToken cancellationToken)
+        protected override async Awaitable UpdateAnimationAsync(System.Threading.CancellationToken cancellationToken)
         {
             target.ForceMeshUpdate();
             var totalCharacters = target.textInfo.characterCount;

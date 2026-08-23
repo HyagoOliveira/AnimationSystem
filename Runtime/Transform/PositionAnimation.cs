@@ -8,7 +8,7 @@ namespace ActionCode.AnimationSystem
     /// Use the <see cref="positionCurve"/> curve to animate the scale.
     /// </para>
     /// </summary>
-    [AddComponentMenu("Animation/Transform/Position")]
+    [AddComponentMenu("Animation/Transform/Position Animation")]
     public sealed class PositionAnimation : AbstractAnimation
     {
         [SerializeField, Tooltip("The curve driving the position animation.")]
