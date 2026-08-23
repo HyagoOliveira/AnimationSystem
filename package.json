@@ -1,7 +1,7 @@
 {
   "name": "com.actioncode.animation-system",
   "displayName": "ActionCode-Animation System",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "unity": "6000.3",
   "description": "This package contains scripts to improve animation workflow.",
   "keywords": [
@@ -21,6 +21,6 @@
     "email": "hyagogow@gmail.com"
   },
   "dependencies": {
-    "com.actioncode.attributes": "3.5.0"
+    "com.actioncode.attributes": "3.6.0"
   }
 }
