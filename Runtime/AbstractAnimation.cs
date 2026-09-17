@@ -42,9 +42,9 @@ namespace ActionCode.AnimationSystem
             Play();
         }
 
-        public void Pause() => IsPaused = true;
+        public virtual void Pause() => IsPaused = true;
 
-        public void Play()
+        public virtual void Play()
         {
             EnablePlayMode();
             _ = PlayAsync(destroyCancellationToken);
@@ -71,7 +71,7 @@ namespace ActionCode.AnimationSystem
             finally { Stop(); }
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             IsPaused = false;
             IsPlaying = false;
@@ -104,7 +104,7 @@ namespace ActionCode.AnimationSystem
         protected bool CanPlay(CancellationToken cancellationToken) => !cancellationToken.IsCancellationRequested && IsPlaying;
         protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
-        private void EnablePlayMode()
+        protected void EnablePlayMode()
         {
             enabled = true;
             IsPaused = false;
