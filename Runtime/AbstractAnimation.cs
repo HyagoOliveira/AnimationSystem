@@ -18,12 +18,18 @@ namespace ActionCode.AnimationSystem
         public bool useUnscaledTime;
 
         [Space]
-        [Tooltip("The animation speed.")]
-        public float speed = 1f;
+        [SerializeField, Tooltip("The animation speed.")]
+        private float speed = 1f;
 
         public bool IsPaused { get; private set; }
         public bool IsPlaying { get; private set; }
         public float CurrentTime { get; private set; }
+
+        public virtual float Speed
+        {
+            get => speed;
+            set => speed = value;
+        }
 
         protected virtual void Reset() => SetIdentifier();
 
@@ -34,7 +40,7 @@ namespace ActionCode.AnimationSystem
 
         private void OnDisable() => Stop();
 
-        public void ResetSpeed() => speed = 1F;
+        public void ResetSpeed() => Speed = 1F;
 
         public void Restart()
         {
@@ -100,7 +106,7 @@ namespace ActionCode.AnimationSystem
         protected virtual void UpdateAnimation() { }
 
         protected void CancelAnimation() => throw new System.OperationCanceledException();
-        protected void UpdateCurrentTime() => CurrentTime += GetDeltaTime() * speed;
+        protected void UpdateCurrentTime() => CurrentTime += GetDeltaTime() * Speed;
         protected bool CanPlay(CancellationToken cancellationToken) => !cancellationToken.IsCancellationRequested && IsPlaying;
         protected float GetDeltaTime() => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 

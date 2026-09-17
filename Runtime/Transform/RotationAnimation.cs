@@ -40,7 +40,7 @@ namespace ActionCode.AnimationSystem
             }
             else
             {
-                var velocity = GetDeltaTime() * speed * axisSpeed;
+                var velocity = GetDeltaTime() * Speed * axisSpeed;
                 transform.Rotate(velocity, relation);
             }
         }

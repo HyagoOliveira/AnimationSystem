@@ -15,6 +15,17 @@ namespace ActionCode.AnimationSystem
     {
         [SerializeField] private ParticleSystem particleSystem;
 
+        public override float Speed
+        {
+            get => base.Speed;
+            set
+            {
+                base.Speed = value;
+                var main = particleSystem.main;
+                main.simulationSpeed = value;
+            }
+        }
+
         protected override void Reset()
         {
             base.Reset();
